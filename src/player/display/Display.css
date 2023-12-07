@@ -1,0 +1,13 @@
+.Display {
+    height: 60vh;
+    background-color: #111;
+}
+
+.Display > video {
+    opacity: 0;
+    transition: .2s opacity;
+}
+
+.Display[data-loading="false"] > video {
+    opacity: 1;
+}

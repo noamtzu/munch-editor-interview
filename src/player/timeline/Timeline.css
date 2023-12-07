@@ -1,0 +1,35 @@
+.Timeline {
+    padding: 10px 20px;
+    background-color: #111;
+}
+
+.Timeline > div {
+    position: relative;
+    max-width: 1000px;
+    margin: 0 auto;
+    opacity: 0;
+    transition: .2s opacity;
+    aspect-ratio: 14/1;
+}
+
+.Timeline[data-loading="false"] > div {
+    opacity: 1;
+}
+
+.Timeline > div > * {
+    position: absolute;
+}
+
+.Timeline > div > :first-child {
+    z-index: 1;
+    inset: 0;
+}
+
+.Timeline > div > :nth-child(2) {
+    z-index: 0;
+    inset: 0;
+}
+
+.Timeline > div > :nth-child(3) {
+    z-index: 2;
+}

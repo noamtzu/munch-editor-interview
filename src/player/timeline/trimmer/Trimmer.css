@@ -1,0 +1,49 @@
+.Trimmer {
+    display: grid;
+    grid-template-columns: auto 260px auto;
+}
+
+.Trimmer > :nth-child(1),
+.Trimmer > :nth-child(3) {
+    background-color: #33333380;
+}
+
+.Trimmer > :nth-child(2) {
+    position: relative;
+}
+
+.Trimmer .grip {
+    --_border-side-width: 16px;
+
+    position: absolute;
+    width: calc(100% + (var(--_border-side-width) * 2));
+    left: calc(var(--_border-side-width) * -1);
+    z-index: 1;
+    height: 100%;
+    border: 5px solid #f27922;
+    box-shadow: 0px 0px 2px 1px #333;
+    box-sizing: border-box;
+    border-radius: 8px;
+    border-right-width: var(--_border-side-width);
+    border-left-width: var(--_border-side-width);
+}
+
+.Trimmer .grip:hover {
+    cursor: pointer;
+}
+
+.Trimmer .grip > * {
+    position: absolute;
+    height: 100%;
+    width: 16px;
+}
+
+.Trimmer .grip > :nth-child(1) {
+    left: -16px;
+    cursor: ew-resize;
+}
+
+.Trimmer .grip > :nth-child(2) {
+    right: -16px;
+    cursor: ew-resize;
+}
