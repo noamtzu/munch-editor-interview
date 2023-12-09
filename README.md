@@ -50,6 +50,7 @@ Your task is divided into two main parts: bug fixing and feature addition.
 
 3. **Time Indicator for Trimmed Section:** Modify the time indicator on the seek bar so that it displays the time duration between the start and end of the trimmed section, rather than the entire video. This will provide a more accurate and user-friendly experience for manipulating the video segment.
 
+![Alt text](README-assets/image-7.png)
 
 ## Guidelines
 
