@@ -20,9 +20,11 @@
 ### Video Trimmer Responsiveness
 This functionality lies at the core of the system, and its proper functioning is essential as it can impact the user experience and the development of 2 other features that I intend to implement.
 
+### Time Indicators for Trimmer
+Enhancing the player functionality can result in a more robust player, making it a superior choice to work with
+
 -----------------
 
 ## Explain bug fixes
 ### Video Trimmer Responsiveness
-Move the 'mousemove' event listener outside the original useEffect to prevent repeated registration and
-unregistration of multiple event listeners plus fix the diff calculation in 
+Move the 'mousemove' event listener outside the original useEffect to prevent repeated registration and unregistration of multiple event listeners plus fix the diff calculation in handleMouseMove.

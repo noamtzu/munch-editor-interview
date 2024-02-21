@@ -7,7 +7,7 @@ import { TTarget } from "../../components/dragable/Draggable.types";
 const MIN_TRIM_WIDTH = 40;
 
 export const Trimmer = () => {
-    const { video, setStartTime, setEndTime, setIsOnTrim } = useContext(videoContext);
+    const { video, startTime, setStartTime, endTime, setEndTime, setIsOnTrim } = useContext(videoContext);
     const gripRef = useRef<HTMLDivElement>(null);
     const spaceRef = useRef<HTMLDivElement>(null);
     const wrapRef = useRef<HTMLDivElement>(null);
@@ -166,16 +166,24 @@ export const Trimmer = () => {
         }
     }
 
+    function formatTime(time: number): string {
+        const minutes = Math.floor(time / 60);
+        const seconds = Math.floor(time % 60);
+        return `${minutes}:${seconds.toString().padStart(2, '0')}`;
+    }
+
     return (
         <div className="Trimmer" ref={wrapRef}>
             <div></div>
             <div ref={spaceRef}>
                 <div ref={gripRef} className="grip" data-dir="drag">
+                    <div className="time-indicator-start">{formatTime(startTime)}</div>
                     <div data-dir="left"></div>
+                    <div className="time-indicator-end">{formatTime(endTime)}</div>
                     <div data-dir="right"></div>
                 </div>
             </div>
             <div></div>
-        </div >
+        </div>
     )
 }

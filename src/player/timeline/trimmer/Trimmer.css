@@ -3,8 +3,8 @@
     grid-template-columns: auto 260px auto;
 }
 
-.Trimmer > :nth-child(1),
-.Trimmer > :nth-child(3) {
+.Trimmer > :nth-child(2),
+.Trimmer > :nth-child(5) {
     background-color: #33333380;
 }
 
@@ -38,12 +38,38 @@
     width: 16px;
 }
 
-.Trimmer .grip > :nth-child(1) {
+.Trimmer .grip > :nth-child(2) {
     left: -16px;
     cursor: ew-resize;
 }
 
-.Trimmer .grip > :nth-child(2) {
+.Trimmer .grip > :nth-child(4) {
     right: -16px;
     cursor: ew-resize;
+}
+
+.Trimmer .time-indicator-start {
+    background-color: yellow;
+    position: absolute;
+    top: 60px;
+    font-size: 11px;
+    padding: 1px 6px;
+    border-radius: 3px;
+    font-family: sans-serif;
+    left: 0;
+    width: 30px;
+    height: 30px;
+}
+
+.Trimmer .time-indicator-end {
+    background-color: yellow;
+    position: absolute;
+    top: 60px;
+    font-size: 11px;
+    padding: 1px 6px;
+    border-radius: 3px;
+    font-family: sans-serif;
+    right: 0;
+    width: 30px;
+    height: 30px;
 }
