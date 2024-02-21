@@ -26,6 +26,12 @@ Enhancing the player functionality can result in a more robust player, making it
 ### Seek Bar Accuracy
 A simple and tidy solution.
 
+### Custom Play/Pause Buttons and Progress Bar
+Great feature that we can utilize to enhance functionality or branding
+
+### Time Indicator for Trimmed Section
+Didn't understand the feature and I ran out of time
+
 -----------------
 
 ## Explain bug fixes
@@ -34,3 +40,7 @@ Move the 'mousemove' event listener outside the original useEffect to prevent re
 
 ### Seek Bar Accuracy
 I opted for a straightforward solution that meets the requirements, allowing me to save time and concentrate on other tasks.
+
+-----------------
+
+**I really enjoyed this task.Thank you for the opportunity!**
