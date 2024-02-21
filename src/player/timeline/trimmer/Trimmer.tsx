@@ -1,9 +1,8 @@
-import { useContext, useEffect, useRef } from "react"
-import { videoContext } from "../../../context/videoContext"
+import { useContext, useEffect, useRef } from "react";
+import { videoContext } from "../../../context/videoContext";
 import './Trimmer.css';
 import { IDragStatus } from "./Trimmer.types";
 import { TTarget } from "../../components/dragable/Draggable.types";
-
 
 const MIN_TRIM_WIDTH = 40;
 
@@ -13,12 +12,12 @@ export const Trimmer = () => {
     const spaceRef = useRef<HTMLDivElement>(null);
     const wrapRef = useRef<HTMLDivElement>(null);
 
-    const dragRef = useRef<IDragStatus>({ 
-        startPosition: 0, 
-        startWidth: 200, 
-        x: 0, 
-        isOn: false, 
-        currPosition: 0, 
+    const dragRef = useRef<IDragStatus>({
+        startPosition: 0,
+        startWidth: 200,
+        x: 0,
+        isOn: false,
+        currPosition: 0,
         currWidth: 0,
         target: 'drag'
     });
@@ -27,17 +26,15 @@ export const Trimmer = () => {
         if (gripRef?.current) {
             gripRef.current.addEventListener('mousedown', handleMouseDown);
             window.addEventListener('mouseup', handleMouseUp);
-            window.addEventListener('mousemove', handleMouseMove);
         }
 
         return () => {
             if (gripRef?.current) {
                 gripRef.current.removeEventListener('mousedown', handleMouseDown);
                 window.removeEventListener('mouseup', handleMouseUp);
-                window.removeEventListener('mousemove', handleMouseMove);
             }
         }
-    }, [])
+    }, []);
 
     useEffect(() => {
         if(video?.current) {
@@ -48,14 +45,14 @@ export const Trimmer = () => {
                 video.current.removeEventListener('loadedmetadata', handleInit);
             }
         }
-    }, [video?.current])
+    }, [video?.current]);
 
     const handleInit = () => {
-        setPosition()
+        setPosition();
     }
 
     const handleMouseDown = (e: MouseEvent) => {
-        if (!spaceRef.current) { return }
+        if (!spaceRef.current) { return; }
         const eTarget = e.target as HTMLElement;
 
         dragRef.current.startPosition = spaceRef.current.offsetLeft;
@@ -67,7 +64,7 @@ export const Trimmer = () => {
         dragRef.current.target = eTarget.getAttribute('data-dir') as TTarget;
 
         if(dragRef.current.target === 'drag') {
-            skipToPosition(e.x)
+            skipToPosition(e.x);
         } else {
             setIsOnTrim(true);
         }
@@ -92,50 +89,62 @@ export const Trimmer = () => {
         setIsOnTrim(false);
     }
 
-    const handleMouseMove = (e: MouseEvent) => {
-        if (!wrapRef.current || !dragRef.current.isOn) { return }
+    useEffect(() => {
+        const handleMouseMove = (e: MouseEvent) => {
+            if (!wrapRef.current || !dragRef.current.isOn) { return }
 
-        const diff = e.y - dragRef.current.x;
-        let leftWidth = dragRef.current.startPosition;
-        let width = dragRef.current.startWidth;
+            const diff = e.x - dragRef.current.x;
+            let leftWidth = dragRef.current.startPosition;
+            let width = dragRef.current.startWidth;
 
-        switch (dragRef.current.target) {
-            case 'right': {
-                width += diff;
+            switch (dragRef.current.target) {
+                case 'right': {
+                    width += diff;
 
-                if(width < MIN_TRIM_WIDTH) {
-                    width = MIN_TRIM_WIDTH;
-                    leftWidth = dragRef.current.currPosition;
+                    if(width < MIN_TRIM_WIDTH) {
+                        width = MIN_TRIM_WIDTH;
+                        leftWidth = dragRef.current.currPosition;
+                    }
+
+                    if (leftWidth + width > wrapRef.current.offsetWidth) {
+                        width = dragRef.current.currWidth;
+                        leftWidth = wrapRef.current.offsetWidth - width;
+                    }
+
+                    break;
                 }
+                case 'left': {
+                    leftWidth += diff;
 
-                if (leftWidth + width > wrapRef.current.offsetWidth) {
-                    width = dragRef.current.currWidth;
-                    leftWidth = wrapRef.current.offsetWidth - width;
+                    if (leftWidth < 0) {
+                        leftWidth = 0;
+                        width = dragRef.current.currWidth;
+                    } else {
+                        width -= diff;
+                    }
+
+                    if(width < MIN_TRIM_WIDTH) {
+                        width = MIN_TRIM_WIDTH;
+                        leftWidth = dragRef.current.currPosition;
+                    }
+
+                    break;
                 }
-
-             
-                break;
             }
-            case 'left': {
-                leftWidth += diff;
-                if (leftWidth < 0) {
-                    leftWidth = 0;
-                    width = dragRef.current.currWidth;
-                }else {
-                    width -= diff;
-                }
 
-                if(width < MIN_TRIM_WIDTH) {
-                    width = MIN_TRIM_WIDTH;
-                    leftWidth = dragRef.current.currPosition;
-                }
+            setPosition(leftWidth, width);
+        };
 
-                break;
-            }
-        }
+        const handleMouseMoveEvent = (e: MouseEvent) => {
+            handleMouseMove(e);
+        };
 
-        setPosition(leftWidth, width);
-    }
+        window.addEventListener('mousemove', handleMouseMoveEvent);
+
+        return () => {
+            window.removeEventListener('mousemove', handleMouseMoveEvent);
+        };
+    }, []);
 
     const setPosition = (left = dragRef.current.startPosition, width = dragRef.current.startWidth) => {
         if (!wrapRef.current) { return }
