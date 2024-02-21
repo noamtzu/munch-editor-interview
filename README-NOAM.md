@@ -23,8 +23,14 @@ This functionality lies at the core of the system, and its proper functioning is
 ### Time Indicators for Trimmer
 Enhancing the player functionality can result in a more robust player, making it a superior choice to work with
 
+### Seek Bar Accuracy
+A simple and tidy solution.
+
 -----------------
 
 ## Explain bug fixes
 ### Video Trimmer Responsiveness
 Move the 'mousemove' event listener outside the original useEffect to prevent repeated registration and unregistration of multiple event listeners plus fix the diff calculation in handleMouseMove.
+
+### Seek Bar Accuracy
+I opted for a straightforward solution that meets the requirements, allowing me to save time and concentrate on other tasks.

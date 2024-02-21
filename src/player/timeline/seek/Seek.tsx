@@ -29,7 +29,7 @@ export const Seek = () => {
         if(video.current.currentTime > endTime) { return }
 
         const per = (video.current.currentTime / video.current.duration) * 100;
-        seekRef.current.style.left = per + "%";
+        seekRef.current.style.left = (per - 0.5) + "%";
 
        setTime();
     }
