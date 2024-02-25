@@ -67,6 +67,7 @@ export const Display = () => {
                     {isPlaying ? 'Pause' : 'Play'}
                 </button>
                 <div className="progress-bar-container" onClick={handleProgressClick}>
+                    <div className="progress-bar-buffering" style={{width: `${((currentTime / duration) + 0.1) * 100}%`}}></div>
                     <div className="progress-bar" style={{width: `${(currentTime / duration) * 100}%`}}></div>
                 </div>
             </div>

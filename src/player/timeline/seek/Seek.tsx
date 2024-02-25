@@ -13,6 +13,7 @@ export const Seek = () => {
     useEffect(() => {
         if (video?.current) {
             video.current.addEventListener('timeupdate', handleUpdate)
+            setTime();
         }
 
         return () => {
@@ -20,16 +21,14 @@ export const Seek = () => {
                 video.current.removeEventListener('timeupdate', handleUpdate)
             }
         }
-    }, [video?.current, endTime])
-
-
+    }, [video?.current, startTime, endTime])
 
     const handleUpdate = () => {
         if (!video?.current || !seekRef.current || !timeRef.current) { return }
         if(video.current.currentTime > endTime) { return }
 
         const per = (video.current.currentTime / video.current.duration) * 100;
-        seekRef.current.style.left = (per - 0.5) + "%";
+        seekRef.current.style.left = per + "%";
 
        setTime();
     }
@@ -37,7 +36,8 @@ export const Seek = () => {
     const setTime = () => {
         if (!video?.current || !timeRef.current) { return }
 
-        let seconds: number | string = Math.round(video.current.currentTime);
+        let currentTimeDiff: number =  video.current.currentTime - startTime;
+        let seconds: number | string = Math.round(currentTimeDiff);
         let minutes: number | string = Math.round(seconds / 60);
 
         if(seconds < 10) { seconds = '0' + seconds };

@@ -35,7 +35,15 @@
     cursor: pointer;
 }
 
-.Display .progress-bar {
+.Display .progress-bar-buffering {
+    position: absolute;
     height: 100%;
     background-color: #fff;
+}
+
+.Display .progress-bar {
+    position: absolute;
+    height: 100%;
+    background-color: red;
+    z-index: 9;
 }
